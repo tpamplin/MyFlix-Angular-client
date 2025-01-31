@@ -13,7 +13,7 @@ const apiUrl = "https://myflix-timpamplin-021f285e4632.herokuapp.com/";
 @Injectable({
     providedIn: "root",
 })
-export class UserRegistrationService {
+export class FetchApiDataService {
     constructor(private http: HttpClient) {}
 
     private getStoredToken(): any {
@@ -186,7 +186,4 @@ export class UserRegistrationService {
         const body = res;
         return body || {};
     }
-}
-export class FetchApiDataService {
-    constructor() {}
 }
