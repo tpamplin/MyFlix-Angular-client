@@ -159,7 +159,7 @@ export class FetchApiDataService {
         console.log(userDetails);
         return this.http
             .post(apiUrl + "login", userDetails)
-            .pipe(catchError(this.handleError));
+            .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
     public userRegistration(userDetails: any): Observable<any> {
