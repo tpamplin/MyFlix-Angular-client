@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FetchApiDataService } from "../fetch-api-data.service";
+import { UpdateProfileFormComponent } from "../update-profile-form/update-profile-form.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
     selector: "app-user-profile-view",
@@ -12,7 +14,10 @@ export class UserProfileViewComponent implements OnInit {
     user: any = {};
     favorites: any[] = [];
 
-    constructor(public fetchApiData: FetchApiDataService) {}
+    constructor(
+        public fetchApiData: FetchApiDataService,
+        public dialog: MatDialog
+    ) {}
 
     ngOnInit(): void {
         this.getUser();
@@ -49,6 +54,12 @@ export class UserProfileViewComponent implements OnInit {
                 }
             }
             console.log(this.favorites);
+        });
+    }
+
+    openUpdateProfileDialog(): void {
+        this.dialog.open(UpdateProfileFormComponent, {
+            width: "500px",
         });
     }
 }

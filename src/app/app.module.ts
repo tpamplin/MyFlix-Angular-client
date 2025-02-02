@@ -25,6 +25,7 @@ import { NavigationBarComponent } from "./navigation-bar/navigation-bar.componen
 import { MatToolbar } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
 import { UserProfileViewComponent } from "./user-profile-view/user-profile-view.component";
+import { UpdateProfileFormComponent } from './update-profile-form/update-profile-form.component';
 
 const appRoutes: Routes = [
     { path: "welcome", component: WelcomePageComponent },
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
         WelcomePageComponent,
         NavigationBarComponent,
         UserProfileViewComponent,
+        UpdateProfileFormComponent,
     ],
     imports: [
         BrowserModule,

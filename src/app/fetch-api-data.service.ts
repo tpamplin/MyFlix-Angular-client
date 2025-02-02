@@ -119,15 +119,17 @@ export class FetchApiDataService {
     }
 
     public updateUser(userDetails: any): Observable<any> {
+        console.log(userDetails);
         const token = this.getStoredToken();
-        const user = this.getStoredUser();
+        const user = JSON.parse(this.getStoredUser());
         const options = {
             headers: new HttpHeaders({
                 Authorization: "Bearer " + token,
             }),
         };
+        console.log("updating user: " + user.Username);
         return this.http
-            .post(apiUrl + "users/" + user.Username, userDetails, options)
+            .put(apiUrl + "users/" + user.Username, userDetails, options)
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
