@@ -24,10 +24,12 @@ import { WelcomePageComponent } from "./welcome-page/welcome-page.component";
 import { NavigationBarComponent } from "./navigation-bar/navigation-bar.component";
 import { MatToolbar } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
+import { UserProfileViewComponent } from "./user-profile-view/user-profile-view.component";
 
 const appRoutes: Routes = [
     { path: "welcome", component: WelcomePageComponent },
     { path: "movies", component: MovieCardComponent },
+    { path: "profile", component: UserProfileViewComponent },
     { path: "", redirectTo: "welcome", pathMatch: "prefix" },
 ];
 
@@ -39,6 +41,7 @@ const appRoutes: Routes = [
         MovieCardComponent,
         WelcomePageComponent,
         NavigationBarComponent,
+        UserProfileViewComponent,
     ],
     imports: [
         BrowserModule,
