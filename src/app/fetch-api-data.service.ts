@@ -73,8 +73,11 @@ export class FetchApiDataService {
     }
 
     public getUser(): Observable<any> {
+        console.log("getUser called in fetch-api-data.service.ts");
         const token = this.getStoredToken();
-        const user = this.getStoredUser();
+        console.log("token: " + token);
+        const user = JSON.parse(this.getStoredUser());
+        console.log("user: " + user);
         const options = {
             headers: new HttpHeaders({
                 Authorization: "Bearer " + token,
