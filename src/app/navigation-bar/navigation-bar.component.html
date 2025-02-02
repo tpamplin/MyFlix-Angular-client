@@ -1,10 +1,10 @@
-<nav class="navbar">
+<mat-toolbar class="navbar">
     <div class="navbar-logo">
-        <img src="../../assets/logo.png"/>
+        <img src="./assets/logo.png"/>
     </div>
-    <ul class="navbar-links">
-        <li><button mat-raised-button (click)="navigateMovies()">Movies</button></li>
-        <li><button mat-raised-button (click)="navigateProfile()">Profile</button></li>
-    </ul>
-
-</nav>
+    <div class="nav-list">
+            <button mat-raised-button routerLink="/movies" class="nav-link">Movies</button>
+            <button mat-raised-button routerLink="/profile" class="nav-link">Profile</button>
+            <button mat-raised-button (click)="logOut()" class="nav-link">Log Out</button>
+    </div>
+</mat-toolbar>

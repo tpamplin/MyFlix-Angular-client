@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatListModule } from "@angular/material/list";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: "app-navigation-bar",
@@ -10,18 +12,13 @@ import { MatDialogRef } from "@angular/material/dialog";
     styleUrl: "./navigation-bar.component.scss",
 })
 export class NavigationBarComponent implements OnInit {
-    constructor(
-        public router: Router,
-        public dialogRef: MatDialogRef<NavigationBarComponent>
-    ) {}
+    constructor(public router: Router) {}
 
     ngOnInit(): void {}
 
-    navigateMovies(): void {
-        this.router.navigate(["movies"]);
-    }
-
-    navigateProfile(): void {
-        this.router.navigate(["profile"]);
+    logOut(): void {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        this.router.navigate(["welcome"]);
     }
 }
