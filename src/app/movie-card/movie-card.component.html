@@ -31,8 +31,8 @@
                 >
                 More Details
                 </button>
-                <button (click)="addMovieToFavorites(movie._id)" mat-button>
-                    <mat-icon style="padding: 10px" >favorite</mat-icon>
+                <button (click)="toggleFavorite(movie._id)" mat-button>
+                    <mat-icon style="padding: 10px" >{{movie.icon}}</mat-icon>
                 </button>
             </mat-card-actions>
         </mat-card>

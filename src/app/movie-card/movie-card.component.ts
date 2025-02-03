@@ -16,6 +16,8 @@ import { MovieDetailsComponent } from "../movie-details/movie-details.component"
 })
 export class MovieCardComponent implements OnInit {
     movies: any[] = [];
+    favorites: any[] = [];
+    user: any = {};
 
     constructor(
         public fetchApiData: FetchApiDataService,
@@ -24,6 +26,7 @@ export class MovieCardComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.getUserFavorites();
         this.getMovies();
     }
 
@@ -32,7 +35,25 @@ export class MovieCardComponent implements OnInit {
             console.log("fetching movies");
             this.movies = resp;
             console.log(this.movies);
+            this.toggleFavoritesIcon();
             return this.movies;
+        });
+    }
+
+    getUserFavorites(): void {
+        this.fetchApiData.getUser().subscribe((resp: any) => {
+            this.user = resp;
+            console.log(this.user);
+            this.favorites = this.user.Favorites;
+            console.log("favorites: " + this.favorites);
+        });
+    }
+
+    toggleFavoritesIcon(): void {
+        this.movies.forEach((movie: any) => {
+            this.favorites.includes(movie._id)
+                ? (movie.icon = "delete")
+                : (movie.icon = "favorite_border");
         });
     }
 
@@ -57,26 +78,29 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
-    // toggleFavorite(movie: any): void {
-    //     if (this.favoriteMovies.includes(movie)) {
-    //         this.removeMovieFromFavorites(movie);
-    //     } else {
-    //         this.addMovieToFavorites(movie);
-    //     }
-    // }
+    toggleFavorite(movieID: any): void {
+        console.log(movieID);
+        if (this.favorites.includes(movieID)) {
+            console.log("removing movie");
+            this.removeMovieFromFavorites(movieID);
+            this.getUserFavorites();
+        } else {
+            console.log("adding movie");
+            this.addMovieToFavorites(movieID);
+            this.getUserFavorites();
+        }
+        this.toggleFavoritesIcon();
+    }
 
-    // removeMovieFromFavorites(movieID: any): void {
-    //     console.log("removing " + movieID + " from favorites");
-    //     this.fetchApiData.deleteFavorite(movieID).subscribe((resp: any) => {
-    //         console.log(resp);
-    //         this.snackBar.open("Movie removed from favorites.", "OK", {
-    //             duration: 1000,
-    //         });
-    //         setTimeout(() => {
-    //             window.location.reload();
-    //         }, 1000);
-    //     });
-    // }
+    removeMovieFromFavorites(movieID: any): void {
+        console.log("removing " + movieID + " from favorites");
+        this.fetchApiData.deleteFavorite(movieID).subscribe((resp: any) => {
+            console.log(resp);
+            this.snackBar.open("Movie removed from favorites.", "OK", {
+                duration: 1000,
+            });
+        });
+    }
 
     addMovieToFavorites(movieID: any): void {
         console.log("adding " + movieID + " to favorites");
