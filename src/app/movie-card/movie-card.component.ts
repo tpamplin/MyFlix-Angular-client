@@ -57,6 +57,27 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
+    // toggleFavorite(movie: any): void {
+    //     if (this.favoriteMovies.includes(movie)) {
+    //         this.removeMovieFromFavorites(movie);
+    //     } else {
+    //         this.addMovieToFavorites(movie);
+    //     }
+    // }
+
+    // removeMovieFromFavorites(movieID: any): void {
+    //     console.log("removing " + movieID + " from favorites");
+    //     this.fetchApiData.deleteFavorite(movieID).subscribe((resp: any) => {
+    //         console.log(resp);
+    //         this.snackBar.open("Movie removed from favorites.", "OK", {
+    //             duration: 1000,
+    //         });
+    //         setTimeout(() => {
+    //             window.location.reload();
+    //         }, 1000);
+    //     });
+    // }
+
     addMovieToFavorites(movieID: any): void {
         console.log("adding " + movieID + " to favorites");
         this.fetchApiData.addFavorite(movieID).subscribe((resp: any) => {

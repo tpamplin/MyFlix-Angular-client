@@ -41,5 +41,8 @@ export class UpdateProfileFormComponent {
                 });
             }
         );
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     }
 }

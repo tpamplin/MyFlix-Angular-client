@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FetchApiDataService } from "../fetch-api-data.service";
 import { UpdateProfileFormComponent } from "../update-profile-form/update-profile-form.component";
+import { DirectorDetailsComponent } from "../director-details/director-details.component";
+import { GenreDetailsComponent } from "../genre-details/genre-details.component";
+import { MovieDetailsComponent } from "../movie-details/movie-details.component";
+
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -64,8 +68,32 @@ export class UserProfileViewComponent implements OnInit {
         this.fetchApiData.deleteFavorite(movieID).subscribe((resp: any) => {
             console.log(resp);
             this.snackBar.open("Movie removed from favorites.", "OK", {
-                duration: 2000,
+                duration: 1000,
             });
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        });
+    }
+
+    showGenreDetails(genre: any): void {
+        this.dialog.open(GenreDetailsComponent, {
+            data: genre,
+            width: "500px",
+        });
+    }
+
+    showDirectorDetails(director: any): void {
+        this.dialog.open(DirectorDetailsComponent, {
+            data: director,
+            width: "500px",
+        });
+    }
+
+    showMovieDetails(movie: any): void {
+        this.dialog.open(MovieDetailsComponent, {
+            data: movie,
+            width: "500px",
         });
     }
 

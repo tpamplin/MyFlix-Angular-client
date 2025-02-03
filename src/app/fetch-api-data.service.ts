@@ -26,6 +26,7 @@ export class FetchApiDataService {
 
     public getAllMovies(): Observable<any> {
         const token = this.getStoredToken();
+        console.log(token);
         const options = {
             headers: new HttpHeaders({
                 Authorization: "Bearer " + token,

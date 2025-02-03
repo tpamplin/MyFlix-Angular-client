@@ -20,23 +20,26 @@
         <img style="width: 150px; height: auto;" src="{{movie.ImagePath}}" alt="{{movie.Title}}"/>
         <mat-card-actions>
             <button
-                mat-button
-                color="primary"
-            >
-            Genre
-            </button>
-            <button
-                mat-button
-                color="primary"
-            >
-            Director
-            </button>
-            <button
-                mat-button
-                color="primary"
-            >
-            Synopsis
-            </button>
+            mat-button
+            color="primary"
+            (click)="showGenreDetails(movie.Genre)"
+        >
+        Genre
+        </button>
+        <button
+            mat-button
+            color="primary"
+            (click)="showDirectorDetails(movie.Director)"
+        >
+        Director
+        </button>
+        <button
+            mat-button
+            color="primary"
+            (click)="showMovieDetails(movie)"
+        >
+        More Details
+        </button>
             <button (click)="removeMovieFromFavorites(movie._id)" mat-button>
                 <mat-icon style="padding: 10px" >delete</mat-icon>
             </button>
