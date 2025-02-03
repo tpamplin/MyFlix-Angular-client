@@ -26,6 +26,9 @@ import { MatToolbar } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
 import { UserProfileViewComponent } from "./user-profile-view/user-profile-view.component";
 import { UpdateProfileFormComponent } from './update-profile-form/update-profile-form.component';
+import { GenreDetailsComponent } from './genre-details/genre-details.component';
+import { DirectorDetailsComponent } from './director-details/director-details.component';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
 
 const appRoutes: Routes = [
     { path: "welcome", component: WelcomePageComponent },
@@ -44,6 +47,9 @@ const appRoutes: Routes = [
         NavigationBarComponent,
         UserProfileViewComponent,
         UpdateProfileFormComponent,
+        GenreDetailsComponent,
+        DirectorDetailsComponent,
+        MovieDetailsComponent,
     ],
     imports: [
         BrowserModule,
