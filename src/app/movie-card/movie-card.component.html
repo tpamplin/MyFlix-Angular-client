@@ -1,31 +1,40 @@
-<app-navigation-bar></app-navigation-bar>
-<div style="display: flex">
-    <mat-card *ngFor="let movie of movies; let i=index" style="margin: 10px; flex: 1 1 auto">
-        <mat-card-header>
-            <mat-card-title>{{movie.Title}}</mat-card-title>
-            <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
-        </mat-card-header>
-        <img style="width: 150px; height: auto;" src="{{movie.ImagePath}}" alt="{{movie.Title}}"/>
-        <mat-card-actions>
-            <button
-                mat-button
-                color="primary"
-            >
-            Genre
-            </button>
-            <button
-                mat-button
-                color="primary"
-            >
-            Director
-            </button>
-            <button
-                mat-button
-                color="primary"
-            >
-            Synopsis
-            </button>
-            <mat-icon>favorite_border</mat-icon>
-        </mat-card-actions>
-    </mat-card>
+<div class="app">
+    <div class="navigation-bar-container">
+        <app-navigation-bar></app-navigation-bar>
+    </div>
+    <div class="movie-card-container" cdkScrollable style="display: flex">
+        <mat-card *ngFor="let movie of movies; let i=index" style="flex: 1 1 auto;">
+            <mat-card-header style="margin: auto">
+                <mat-card-title style="text-align: center">{{movie.Title}}</mat-card-title>
+                <mat-card-subtitle style="text-align: center">Directed by: {{movie.Director.Name}}</mat-card-subtitle>
+            </mat-card-header>
+            <img style="width: 200px; height: auto; margin: auto;" src="{{movie.ImagePath}}" alt="{{movie.Title}}"/>
+            <mat-card-actions>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="showGenreDetails(movie.Genre)"
+                >
+                Genre
+                </button>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="showDirectorDetails(movie.Director)"
+                >
+                Director
+                </button>
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="showMovieDetails(movie)"
+                >
+                More Details
+                </button>
+                <button (click)="addMovieToFavorites(movie._id)" mat-button>
+                    <mat-icon style="padding: 10px" >favorite</mat-icon>
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>

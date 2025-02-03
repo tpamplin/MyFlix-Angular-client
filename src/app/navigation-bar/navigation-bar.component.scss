@@ -1,10 +1,25 @@
 .nav-list {
     display: flex;
     flex-direction: row;
-    margin: 10px;
     justify-content:center;
 }
 
+.navbar-logo {
+    max-width: 125px;
+}
+
+.navbar {
+    padding: 0;
+    margin: 10px;
+    width: 100vw;
+}
+
+.navbar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: auto;
+}
 
 .nav-link{
     padding:5px;

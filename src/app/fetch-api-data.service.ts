@@ -103,7 +103,7 @@ export class FetchApiDataService {
 
     public addFavorite(movieID: string): Observable<any> {
         const token = this.getStoredToken();
-        const user = this.getStoredUser();
+        const user = JSON.parse(this.getStoredUser());
         const options = {
             headers: new HttpHeaders({
                 Authorization: "Bearer " + token,
@@ -135,7 +135,7 @@ export class FetchApiDataService {
 
     public deleteUser(): Observable<any> {
         const token = this.getStoredToken();
-        const user = this.getStoredUser();
+        const user = JSON.parse(this.getStoredUser());
         const options = {
             headers: new HttpHeaders({
                 Authorization: "Bearer " + token,
@@ -148,7 +148,7 @@ export class FetchApiDataService {
 
     public deleteFavorite(movieID: string): Observable<any> {
         const token = this.getStoredToken();
-        const user = this.getStoredUser();
+        const user = JSON.parse(this.getStoredUser());
         const options = {
             headers: new HttpHeaders({
                 Authorization: "Bearer " + token,

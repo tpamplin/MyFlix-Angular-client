@@ -1,10 +1,12 @@
-<mat-toolbar class="navbar">
-    <div class="navbar-logo">
-        <img src="./assets/logo.png"/>
-    </div>
-    <div class="nav-list">
-            <button mat-raised-button routerLink="/movies" class="nav-link">Movies</button>
-            <button mat-raised-button routerLink="/profile" class="nav-link">Profile</button>
-            <button mat-raised-button (click)="logOut()" class="nav-link">Log Out</button>
-    </div>
-</mat-toolbar>
+<div class="navbar-container">
+    <mat-toolbar class="navbar">
+        <div class="navbar-logo-container">
+            <img class="navbar-logo" src="./assets/logo.png"/>
+        </div>
+        <div class="nav-list">
+                <button mat-raised-button routerLink="/movies" class="nav-link">Movies</button>
+                <button mat-raised-button routerLink="/profile" class="nav-link">Profile</button>
+                <button mat-raised-button (click)="logOut()" class="nav-link">Log Out</button>
+        </div>
+    </mat-toolbar>
+</div>

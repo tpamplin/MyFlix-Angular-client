@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FetchApiDataService } from "../fetch-api-data.service";
 import { UpdateProfileFormComponent } from "../update-profile-form/update-profile-form.component";
 import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
     selector: "app-user-profile-view",
@@ -16,7 +17,8 @@ export class UserProfileViewComponent implements OnInit {
 
     constructor(
         public fetchApiData: FetchApiDataService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        public snackBar: MatSnackBar
     ) {}
 
     ngOnInit(): void {
@@ -54,6 +56,16 @@ export class UserProfileViewComponent implements OnInit {
                 }
             }
             console.log(this.favorites);
+        });
+    }
+
+    removeMovieFromFavorites(movieID: any): void {
+        console.log("removing " + movieID + " from favorites");
+        this.fetchApiData.deleteFavorite(movieID).subscribe((resp: any) => {
+            console.log(resp);
+            this.snackBar.open("Movie removed from favorites.", "OK", {
+                duration: 2000,
+            });
         });
     }
 

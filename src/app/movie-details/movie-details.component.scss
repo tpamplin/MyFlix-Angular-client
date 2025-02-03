@@ -1,0 +1,14 @@
+.scroll-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.movie-image {
+    max-width: 300px
+}
+
+@media screen and (max-width: 400px){
+    .movie-image {
+        max-width: 200px
+    }
+}
