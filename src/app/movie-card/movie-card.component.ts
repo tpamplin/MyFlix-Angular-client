@@ -79,12 +79,10 @@ export class MovieCardComponent implements OnInit {
                 if (movie.icon === "delete") {
                     movie.icon = "favorite";
                     console.log(movie.icon);
-                    return;
                 }
                 if (movie.icon === "favorite") {
                     movie.icon = "delete";
                     console.log(movie.icon);
-                    return;
                 }
             }
         });
