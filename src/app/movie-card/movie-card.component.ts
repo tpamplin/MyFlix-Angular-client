@@ -26,8 +26,8 @@ export class MovieCardComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.getUserFavorites();
         this.getMovies();
+        this.getUserFavorites();
     }
 
     getMovies(): void {
@@ -35,7 +35,6 @@ export class MovieCardComponent implements OnInit {
             console.log("fetching movies");
             this.movies = resp;
             console.log(this.movies);
-            this.toggleFavoritesIcon();
             return this.movies;
         });
     }
@@ -46,30 +45,54 @@ export class MovieCardComponent implements OnInit {
             console.log(this.user);
             this.favorites = this.user.Favorites;
             console.log("favorites: " + this.favorites);
+            this.setFavoritesIcon();
         });
     }
 
-    toggleFavoritesIcon(movieID = null): void {
-        this.movies.forEach((movie: any) => {
-            if (movie.isFavorite != null) {
-                if (movie.isFavorite) {
+    setFavoritesIcon(): void {
+        //wait 1 second after loading to ensure that user.favorites has been populated.
+        setTimeout(() => {
+            console.log("Checking " + this.movies + " for favorites");
+            this.movies.forEach((movie: any) => {
+                movie.icon = "favorite";
+                if (this.favorites.includes(movie._id)) {
+                    console.log(
+                        movie.Title +
+                            " is in the user's favorites list, checking icon."
+                    );
                     movie.icon = "delete";
-                } else {
-                    movie.icon = "favorite_border";
+                } else if (!this.favorites.includes(movie._id)) {
+                    movie.icon = "favorite";
+                }
+            });
+        }, 1000);
+    }
+
+    toggleFavoritesIcon(movieID: any): void {
+        this.movies.forEach((movie: any) => {
+            console.log(
+                "Checking " + movie._id + " to see if it matches " + movieID
+            );
+            if (movie._id === movieID) {
+                console.log("toggling the icon for " + movie.Title);
+                console.log(movie.icon);
+                if (movie.icon === "delete") {
+                    movie.icon = "favorite";
+                    console.log(movie.icon);
+                    return;
+                }
+                if (movie.icon === "favorite") {
+                    movie.icon = "delete";
+                    console.log(movie.icon);
+                    return;
                 }
             }
-
-            if (this.favorites.includes(movie._id) || movie._id === movieID) {
-                movie.icon = "delete";
-                movie.isFavorite = true;
-            } else if (
-                !this.favorites.includes(movie._id) ||
-                movie._id != movieID
-            ) {
-                movie.icon = "favorite_border";
-                movie.isFavorite = false;
-            }
         });
+        //in case the Icon does not update, wait 3 seconds and then update all icons to ensure they are correct.
+        setTimeout(() => {
+            this.getUserFavorites();
+            this.setFavoritesIcon();
+        }, 3000);
     }
 
     showGenreDetails(genre: any): void {
@@ -98,12 +121,11 @@ export class MovieCardComponent implements OnInit {
         if (this.favorites.includes(movieID)) {
             console.log("removing movie");
             this.removeMovieFromFavorites(movieID);
-            this.getUserFavorites();
         } else {
             console.log("adding movie");
             this.addMovieToFavorites(movieID);
-            this.getUserFavorites();
         }
+        this.getUserFavorites();
         this.toggleFavoritesIcon(movieID);
     }
 
