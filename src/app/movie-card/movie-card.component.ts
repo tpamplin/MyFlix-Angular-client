@@ -49,11 +49,26 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
-    toggleFavoritesIcon(): void {
+    toggleFavoritesIcon(movieID = null): void {
         this.movies.forEach((movie: any) => {
-            this.favorites.includes(movie._id)
-                ? (movie.icon = "delete")
-                : (movie.icon = "favorite_border");
+            if (movie.isFavorite != null) {
+                if (movie.isFavorite) {
+                    movie.icon = "delete";
+                } else {
+                    movie.icon = "favorite_border";
+                }
+            }
+
+            if (this.favorites.includes(movie._id) || movie._id === movieID) {
+                movie.icon = "delete";
+                movie.isFavorite = true;
+            } else if (
+                !this.favorites.includes(movie._id) ||
+                movie._id != movieID
+            ) {
+                movie.icon = "favorite_border";
+                movie.isFavorite = false;
+            }
         });
     }
 
@@ -89,7 +104,7 @@ export class MovieCardComponent implements OnInit {
             this.addMovieToFavorites(movieID);
             this.getUserFavorites();
         }
-        this.toggleFavoritesIcon();
+        this.toggleFavoritesIcon(movieID);
     }
 
     removeMovieFromFavorites(movieID: any): void {

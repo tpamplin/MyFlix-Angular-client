@@ -1,7 +1,6 @@
 {
   "name": "my-flix-angular-client",
   "version": "0.0.0",
-  "homepage": "https://tpamplin.github.io/MyFlix-Angular-client/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
