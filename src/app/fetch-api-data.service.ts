@@ -19,22 +19,33 @@ const apiUrl = "https://myflix-timpamplin-021f285e4632.herokuapp.com/";
     providedIn: "root",
 })
 
-//This function is responsible for fetching data from the myFlix API.
+/**
+ * This function is responsible for fetching data from the myFlix API.
+ */
 export class FetchApiDataService {
     //declare HttpClient variable.
     constructor(private http: HttpClient) {}
 
-    //retrieves the storage from localStorage
+    /**
+     * retrieves the user's token from localStorage
+     * @returns {string} the user's token
+     */
     private getStoredToken(): any {
         return localStorage.getItem("token");
     }
 
-    //retrieves the user from localstorage.
+    /**
+     * retrieves the user from localstorage.
+     * @returns {string} a stringified object that contains the user's data
+     */
     private getStoredUser(): any {
         return localStorage.getItem("user");
     }
 
-    //Requests all movie objects from api and returns an array of movie objects.
+    /**
+     * Requests all movie objects from API
+     * @returns {array} Every movie in the database
+     */
     public getAllMovies(): Observable<any> {
         const token = this.getStoredToken();
         console.log(token);
@@ -48,7 +59,11 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    // Requests a specific movie object. Takes a Title parameter and will return a movie object with that title.
+    /**
+     * Requests a specific movie object from the API
+     * @param {string} Title
+     * @returns {object} Data about a movie with the provided title.
+     */
     public getMovie(Title: string): Observable<any> {
         const token = this.getStoredToken();
         const options = {
@@ -61,7 +76,11 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    // Requests a specific director by name. Takes a Name parameter and will return a director object with that name.
+    /**
+     * Requests a specific director by name.
+     * @param {string} name
+     * @returns {object} Data about the director with the specified name.
+     */
     public getDirector(name: string): Observable<any> {
         const token = this.getStoredToken();
         const options = {
@@ -74,7 +93,11 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    //requests a specific genre by name. Takes a Name parameter and will return a genre object with that name.
+    /**
+     * Requests a specific genre by name.
+     * @param {string} name
+     * @returns {object} Data about the genre with the specified name.
+     */
     public getGenre(name: string): Observable<any> {
         const token = this.getStoredToken();
         const options = {
@@ -87,8 +110,11 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    // requests a specific user by username. Will retrieve the current user's username and token from localStorage
-    // and return a user object with a matching Username, as long as the token is valid.
+    /**
+     * Requests a specific user by username. Will retrieve the current user's username and token from localStorage
+     * and return a user object with a matching Username, as long as the token is valid.
+     * @returns {object} All of the currently logged in user's data.
+     */
     public getUser(): Observable<any> {
         console.log("getUser called in fetch-api-data.service.ts");
         const token = this.getStoredToken();
@@ -105,17 +131,13 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    /* 
-    Requests a specific user's list of favorites.
-
-    Will retrieve the current user's username and token from localStorage
-    Returns an array of movie ID's that correspond to the user's favorite movies.
-
-    Currently doesn't work, and is not used.
-    */
+    /**
+     * Requests the currently logged in user's list of favorites.
+     * @returns {array} An array of strings with movie IDs corresponding to the currently logged in user's favorites.
+     */
     public getUserFavorites(): Observable<any> {
         const token = this.getStoredToken();
-        const user = this.getStoredUser();
+        const user = JSON.parse(this.getStoredUser());
         const options = {
             headers: new HttpHeaders({
                 Authorization: "Bearer " + token,
@@ -126,8 +148,12 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    // Takes a parameter of a single movie._id and will add it to the user's favorites list on the database
-    // there is nothing on the back end to prevent the user from having duplicate favorites, so be careful not to allow the user to favorite a movie more than once.
+    /**
+     * Adds a specific movie to the currently logged in user's favorites.
+     * There is nothing on the back end to prevent the user from having duplicate favorites, so be careful not to allow the user to favorite a movie more than once.
+     * @param {string} movieID
+     * @returns {object} The updated user object with an updated Favorites array.
+     */
     public addFavorite(movieID: string): Observable<any> {
         const token = this.getStoredToken();
         const user = JSON.parse(this.getStoredUser());
@@ -145,7 +171,11 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    // Takes a userDetails object as
+    /**
+     * Sends an object with user's new username, password, email, and birthday to the back end to update user profile
+     * @param {object} userDetails
+     * @returns {object} The updated user object on the server.
+     */
     public updateUser(userDetails: any): Observable<any> {
         console.log(userDetails);
         const token = this.getStoredToken();
@@ -161,7 +191,10 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    // Sends a request to the server to delete a user's account. This functionality is not currently in the application, But could be added fairly easily.
+    /**
+     * Sends a request to the server to delete a user's account. This functionality is not currently in the application, But could be added fairly easily.
+     * @returns {string} User deletion confirmation.
+     */
     public deleteUser(): Observable<any> {
         const token = this.getStoredToken();
         const user = JSON.parse(this.getStoredUser());
@@ -175,8 +208,11 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    // This function takes a parameter of a movie's id and takes the username and token of the user in localstorage,
-    // and sends a request to the server to delete that movie from that user's favorites list.
+    /**
+     * Sends a request to the server to delete a movie from the currently logged in user's favorites list.
+     * @param {string} movieID
+     * @returns {object} The updated user object without the specified movie in the favorites list.
+     */
     public deleteFavorite(movieID: string): Observable<any> {
         const token = this.getStoredToken();
         const user = JSON.parse(this.getStoredUser());
@@ -191,8 +227,11 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    // sends a request to the server with the user's username and password which they enter in the login dialog.
-    // Returns a user object and a token, which can be stored in localStorage for later use.
+    /**
+     * Sends the user's username and password to the server to retrieve a token and log in the user.
+     * @param {object} userDetails
+     * @returns {object} The user's data including email, birthday and favorites, and a token.
+     */
     public userLogin(userDetails: any): Observable<any> {
         console.log(userDetails);
         return this.http
@@ -200,8 +239,11 @@ export class FetchApiDataService {
             .pipe(map(this.extractResponseData), catchError(this.handleError));
     }
 
-    // takes a parameter of a user object containing a username, password, email and birthday, which it sends to the server.
-    // The server will make a new entry in the users collection and send back the user object including a database ._id. Allowing the user to login with their username and password.
+    /**
+     * Sends the user's data to the server so it can build a user on the database and allow the user to log in.
+     * @param {object} userDetails
+     * @returns { object } The user's data, including a randomly generated _id and an empty array of favorites.
+     */
     public userRegistration(userDetails: any): Observable<any> {
         console.log(userDetails);
         return this.http
@@ -209,7 +251,11 @@ export class FetchApiDataService {
             .pipe(catchError(this.handleError));
     }
 
-    // This function catches and prints any errors it finds to help you figure out why stuff doesnt work.
+    /**
+     * This function handles any errors that may come up in the process of requesting data from the server.
+     * @param {object} error
+     * @returns {function throwError(error: string)} Throws an error message to let the user know their request failed.
+     */
     private handleError(error: HttpErrorResponse): any {
         if (error.error instanceof ErrorEvent) {
             console.error("some error occured: ", error.error.message);
@@ -223,7 +269,11 @@ export class FetchApiDataService {
         }
     }
 
-    // Takes a parameter of res(ponse) and returns either the response data if there is any otherwise an empty object.
+    /**
+     * Returns the response from the server, or an empty object if there is no response from the server.
+     * @param {any} res
+     * @returns {any} Whatever data is being requested from the server
+     */
     private extractResponseData(res: any): any {
         const body = res;
         return body || {};

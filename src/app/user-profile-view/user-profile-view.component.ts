@@ -37,7 +37,9 @@ export class UserProfileViewComponent implements OnInit {
         this.getUser();
     }
 
-    // This function calls fetchApiData to get all of the user's data.
+    /**
+     * This function calls fetchApiData to get all of the user's data.
+     */
     getUser(): void {
         this.fetchApiData.getUser().subscribe((resp: any) => {
             console.log("response: " + resp);
@@ -50,7 +52,9 @@ export class UserProfileViewComponent implements OnInit {
         });
     }
 
-    // Calls fetchApiData  to get a list of all movies, it then builds a list of complete movie objects by comparing it to the movie _ids in the user's favorites list.
+    /**
+     * Calls fetchApiData  to get a list of all movies, it then builds a list of complete movie objects by comparing it to the movie _ids in the user's favorites list.
+     */
     getFavorites(): void {
         this.fetchApiData.getAllMovies().subscribe((movies: any[]) => {
             console.log("fetching movies");
@@ -77,7 +81,10 @@ export class UserProfileViewComponent implements OnInit {
         });
     }
 
-    //Calls fetchApiData to remove a movie from the user's list of favorites.
+    /**
+     * Calls fetchApiData to remove a movie from the user's list of favorites.
+     * @param {string} movieID
+     */
     removeMovieFromFavorites(movieID: any): void {
         console.log("removing " + movieID + " from favorites");
         this.fetchApiData.deleteFavorite(movieID).subscribe((resp: any) => {
@@ -91,7 +98,10 @@ export class UserProfileViewComponent implements OnInit {
         });
     }
 
-    // Sends data and opens dialog for the genre of a specific movie.
+    /**
+     * Sends data and opens dialog for the genre of a specific movie.
+     * @param {object} genre
+     */
     showGenreDetails(genre: any): void {
         this.dialog.open(GenreDetailsComponent, {
             data: genre,
@@ -99,7 +109,10 @@ export class UserProfileViewComponent implements OnInit {
         });
     }
 
-    // Sends data and opens dialog for the director of a specific movie.
+    /**
+     * Sends data and opens dialog for the director of a specific movie.
+     * @param {object} director
+     */
     showDirectorDetails(director: any): void {
         this.dialog.open(DirectorDetailsComponent, {
             data: director,
@@ -107,7 +120,10 @@ export class UserProfileViewComponent implements OnInit {
         });
     }
 
-    // Sends data and opens dialog to get more information about a movie.
+    /**
+     * Sends data and opens dialog to get more information about a movie.
+     * @param {object} movie
+     */
     showMovieDetails(movie: any): void {
         this.dialog.open(MovieDetailsComponent, {
             data: movie,
@@ -115,7 +131,9 @@ export class UserProfileViewComponent implements OnInit {
         });
     }
 
-    // Opens a form dialog to allow the user to update their profile with a new username, password, email, and birthday.
+    /**
+     * Opens a form dialog to allow the user to update their profile with a new username, password, email, and birthday.
+     */
     openUpdateProfileDialog(): void {
         this.dialog.open(UpdateProfileFormComponent, {
             width: "500px",

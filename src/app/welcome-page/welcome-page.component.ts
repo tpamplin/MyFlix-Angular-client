@@ -17,20 +17,26 @@ import { UserLoginFormComponent } from "../user-login-form/user-login-form.compo
     styleUrl: "./welcome-page.component.scss",
 })
 
-//This is the component which the user will be presented with when they first land on the site with the option to open two dialogs, one to log in and one to sign up with a new account.
+/**
+ * This is the component which the user will be presented with when they first land on the site with the option to open two dialogs, one to log in and one to sign up with a new account.
+ */
 export class WelcomePageComponent {
     constructor(public dialog: MatDialog) {}
 
     ngOnInit(): void {}
 
-    //this will open the user registration dialog
+    /**
+     * this will open the user registration dialog
+     */
     openUserRegistrationDialog(): void {
         this.dialog.open(UserRegistrationFormComponent, {
             width: "280px",
         });
     }
 
-    //this will open the user login dialog.
+    /**
+     * this will open the user login dialog.
+     */
     openUserLoginDialog(): void {
         this.dialog.open(UserLoginFormComponent, {
             width: "280px",

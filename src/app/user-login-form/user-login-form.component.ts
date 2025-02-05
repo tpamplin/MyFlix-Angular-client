@@ -18,7 +18,9 @@ import { FetchApiDataService } from "../fetch-api-data.service";
     styleUrl: "./user-login-form.component.scss",
 })
 
-// This component is a form dialog that allows the user to enter their username and password and gain access to the rest of the site.
+/**
+ * This component is a form dialog that allows the user to enter their username and password and gain access to the rest of the site.
+ */
 export class UserLoginFormComponent implements OnInit {
     // Define the userData object that will be sent to the server.
     @Input() userData = { Username: "", Password: "" };
@@ -33,7 +35,9 @@ export class UserLoginFormComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    //Calls fetchApiData to send the login request.
+    /**
+     * Calls fetchApiData to send the login request.
+     */
     loginUser(): void {
         this.fetchApiData.userLogin(this.userData).subscribe(
             (result) => {

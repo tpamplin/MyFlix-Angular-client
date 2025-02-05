@@ -19,7 +19,9 @@ import { MatSnackBar } from "@angular/material/snack-bar";
     styleUrl: "./update-profile-form.component.scss",
 })
 
-// This component opens up a form with a dialog that allows a user to update their information on the server.
+/**
+ * This component opens up a form with a dialog that allows a user to update their information on the server.
+ */
 export class UpdateProfileFormComponent {
     // userData object definition.
     @Input() userData = { Username: "", Password: "", Email: "", Birthday: "" };
@@ -33,7 +35,9 @@ export class UpdateProfileFormComponent {
 
     ngOnInit(): void {}
 
-    // Calls fetchApiData and sends an object with the updated user data to the server.
+    /**
+     * Calls fetchApiData and sends an object with the updated user data to the server.
+     */
     updateProfile(): void {
         this.fetchApiData.updateUser(this.userData).subscribe(
             (result) => {
