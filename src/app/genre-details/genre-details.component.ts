@@ -10,7 +10,9 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
     templateUrl: "./genre-details.component.html",
     styleUrl: "./genre-details.component.scss",
 })
+/**
+ * Takes genre data from the movie card and sends it to the genre details dialog to be rendered.
+ */
 export class GenreDetailsComponent {
-    // Loads genre details from movie.
     constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }

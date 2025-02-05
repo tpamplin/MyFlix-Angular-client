@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
     styleUrl: "./movie-details.component.scss",
 })
 /**
- * Send data from the movie to the movie details dialog
+ * Send movie data from the movie card to the movie details dialog
  */
 export class MovieDetailsComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
