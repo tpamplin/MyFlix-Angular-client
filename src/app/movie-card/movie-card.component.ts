@@ -18,7 +18,9 @@ import { MovieDetailsComponent } from "../movie-details/movie-details.component"
     styleUrl: "./movie-card.component.scss",
 })
 
-// Movie card component -- Handles each movie card on the main movie screen
+/**
+ * Movie card component -- Handles each movie card on the main movie screen
+ */
 export class MovieCardComponent implements OnInit {
     movies: any[] = [];
     favorites: any[] = [];
@@ -31,13 +33,17 @@ export class MovieCardComponent implements OnInit {
         public snackBar: MatSnackBar
     ) {}
 
-    // When the component is loaded, it will first load movies, then get an array containing the _ids of the user's favorite movies.
+    /**
+     * When the component is loaded, it will first load movies, then get an array containing the _ids of the user's favorite movies.
+     */
     ngOnInit(): void {
         this.getMovies();
         this.getUserFavorites();
     }
 
-    // Calls fetchApiData to get all movies from the database and then saves them to the local variable this.movies.
+    /**
+     * Calls fetchApiData to get all movies from the database and then saves them to the local variable this.movies.
+     */
     getMovies(): void {
         this.fetchApiData.getAllMovies().subscribe((resp: any) => {
             console.log("fetching movies");
@@ -47,7 +53,9 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
-    // Calls fetchApiData to get the user and then extracts the list of favorites from the user data.
+    /**
+     * Calls fetchApiData to get the user and then extracts the list of favorites from the user data.
+     */
     getUserFavorites(): void {
         this.fetchApiData.getUser().subscribe((resp: any) => {
             this.user = resp;
@@ -59,7 +67,9 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
-    // Set favorite/unfavorite icons
+    /**
+     * Check if eacm movie is on the favorites list and set favorite/unfavorite icons
+     */
     setFavoritesIcon(): void {
         //wait 1 second after loading to ensure that user.favorites has been populated.
         setTimeout(() => {
@@ -79,8 +89,11 @@ export class MovieCardComponent implements OnInit {
             });
         }, 1000); // Change this number to change how long the page will wait before trying to compare favorites.
     }
+    /**
+     * When a user clicks favorite/unfavorite on a movie, change the icon to the opposite of what it was.
+     * @param {string} movieID
+     */
 
-    // When a user clicks favorite/unfavorite on a movie, change the icon to the opposite of what it was.
     toggleFavoritesIcon(movieID: any): void {
         this.movies.forEach((movie: any) => {
             console.log(
@@ -106,7 +119,11 @@ export class MovieCardComponent implements OnInit {
         }, 3000);
     }
 
-    // Sends a movie's genre details to the genre details dialog
+    /**
+     * Sends a movie's genre details to the genre details dialog
+     * @param {object} genre
+     */
+    //
     showGenreDetails(genre: any): void {
         this.dialog.open(GenreDetailsComponent, {
             data: genre,
@@ -114,7 +131,11 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
-    // Sends a movie's director details to the director details dialog.
+    /**
+     * Sends a movie's director details to the director details dialog.
+     * @param {object} director
+     */
+
     showDirectorDetails(director: any): void {
         this.dialog.open(DirectorDetailsComponent, {
             data: director,
@@ -122,7 +143,10 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
-    // Sends all of a movie's details to the movie details dialog.
+    /**
+     * Sends all of a movie's details to the movie details dialog.
+     * @param {object} movie
+     */
     showMovieDetails(movie: any): void {
         this.dialog.open(MovieDetailsComponent, {
             data: movie,
@@ -130,7 +154,10 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
-    // checks to see if a movie is on the favorites list and then removes it if it is, adds it if it isnt.
+    /**
+     *  checks to see if a movie is on the favorites list and then removes it if it is, adds it if it isnt.
+     *  @param {string} movieID
+     */
     toggleFavorite(movieID: any): void {
         console.log(movieID);
         if (this.favorites.includes(movieID)) {
@@ -145,7 +172,10 @@ export class MovieCardComponent implements OnInit {
         this.toggleFavoritesIcon(movieID);
     }
 
-    // Calls fetchApiData and sends a DELETE request to the server to remove a movie from a user's favorites list.
+    /**
+     * Calls fetchApiData and sends a DELETE request to the server to remove a movie from a user's favorites list.
+     * @param {string} movieID
+     */
     removeMovieFromFavorites(movieID: any): void {
         console.log("removing " + movieID + " from favorites");
         this.fetchApiData.deleteFavorite(movieID).subscribe((resp: any) => {
@@ -156,7 +186,11 @@ export class MovieCardComponent implements OnInit {
         });
     }
 
-    // Calls fetchApiData and sends a PUT request to add a movie to the user's favorites list.
+    /**
+     * Calls fetchApiData and sends a PUT request to add a movie to the user's favorites list.
+     * @param {string} movieID
+     */
+
     addMovieToFavorites(movieID: any): void {
         console.log("adding " + movieID + " to favorites");
         this.fetchApiData.addFavorite(movieID).subscribe((resp: any) => {
